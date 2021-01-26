@@ -7,7 +7,7 @@
         "description": "This policy denies resource creation when there isn't any tag for the resource.",
         "policyRule": {
             "if": {
-                "type": "Microsoft.Resources/tags",
+                "field": "tags",
                 "exists": "false"
             },
             "then": {
