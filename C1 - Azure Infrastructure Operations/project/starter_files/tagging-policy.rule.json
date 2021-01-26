@@ -1,7 +1,17 @@
 {
     "if": {
-        "field": "tags",
-        "exists": "false"
+        "anyOf": [{
+            "field": "tags",
+            "exists": "false"
+        },
+        {
+            "field": "tags",
+            "match": ""
+        },
+        {
+            "value": "[less(length(field('tags')), 1)]",
+            "equals": "true"
+        }]
     },
     "then": {
         "effect": "deny"
