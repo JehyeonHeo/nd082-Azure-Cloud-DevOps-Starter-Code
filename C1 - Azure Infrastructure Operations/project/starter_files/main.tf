@@ -179,3 +179,9 @@ resource "azurerm_network_interface" "main" {
     project = "AzureWebServerDeploy"
   }
 }
+
+resource "azurerm_network_interface_security_group_association" "main" {
+  count                     = var.minimum-number-of-vm
+  network_interface_id      = azurerm_network_interface.main[count.index].id
+  network_security_group_id = azurerm_network_security_group.main.id
+}
