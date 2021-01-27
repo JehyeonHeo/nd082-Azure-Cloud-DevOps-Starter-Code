@@ -48,9 +48,6 @@ resource "azurerm_network_security_rule" "main1" {
   destination_address_prefix  = "VirtualNetwork"
   resource_group_name         = azurerm_resource_group.main.name
   network_security_group_name = azurerm_network_security_group.main.name
-  tags = {
-    project = "AzureWebServerDeploy"
-  }
 }
 
 resource "azurerm_network_security_rule" "main2" {
@@ -65,9 +62,6 @@ resource "azurerm_network_security_rule" "main2" {
   destination_address_prefix  = "*"
   resource_group_name         = azurerm_resource_group.main.name
   network_security_group_name = azurerm_network_security_group.main.name
-  tags = {
-    project = "AzureWebServerDeploy"
-  }
 }
 
 resource "azurerm_network_security_rule" "main3" {
@@ -82,9 +76,6 @@ resource "azurerm_network_security_rule" "main3" {
   destination_address_prefix  = "VirtualNetwork"
   resource_group_name         = azurerm_resource_group.main.name
   network_security_group_name = azurerm_network_security_group.main.name
-  tags = {
-    project = "AzureWebServerDeploy"
-  }
 }
 
 resource "azurerm_network_security_rule" "main4" {
@@ -99,9 +90,6 @@ resource "azurerm_network_security_rule" "main4" {
   destination_address_prefix  = "VirtualNetwork"
   resource_group_name         = azurerm_resource_group.main.name
   network_security_group_name = azurerm_network_security_group.main.name
-  tags = {
-    project = "AzureWebServerDeploy"
-  }
 }
 
 resource "azurerm_lb" "main" {
@@ -136,9 +124,6 @@ resource "azurerm_subnet" "internal" {
   resource_group_name  = azurerm_resource_group.main.name
   virtual_network_name = azurerm_virtual_network.main.name
   address_prefixes     = ["10.0.2.0/24"]
-  tags = {
-    project = "AzureWebServerDeploy"
-  }
 }
 
 resource "azurerm_network_interface" "main" {
