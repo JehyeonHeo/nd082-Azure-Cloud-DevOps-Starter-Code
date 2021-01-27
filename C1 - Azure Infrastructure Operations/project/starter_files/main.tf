@@ -180,8 +180,20 @@ resource "azurerm_network_interface" "main" {
   }
 }
 
+resource "azurerm_subnet_network_security_group_association" "main" {
+  subnet_id                 = azurerm_subnet.internal.id
+  network_security_group_id = azurerm_network_security_group.main.id
+}
+
 resource "azurerm_network_interface_security_group_association" "main" {
   count                     = var.minimum-number-of-vm
   network_interface_id      = azurerm_network_interface.main[count.index].id
   network_security_group_id = azurerm_network_security_group.main.id
+}
+
+resource "azurerm_network_interface_backend_address_pool_association" "main" {
+  count                   = var.minimum-number-of-vm
+  network_interface_id    = azurerm_network_interface.main[count.index].id
+  ip_configuration_name   = "internal"
+  backend_address_pool_id = azurerm_lb_backend_address_pool.main.id
 }
