@@ -163,10 +163,7 @@ resource "azurerm_linux_virtual_machine" "main" {
   network_interface_ids = [
     azurerm_network_interface.main.id,
   ]
-
-  storage_image_reference {
-    id = "${data.azurerm_image.search.id}"
-  }
+  source_image_id = "${data.azurerm_image.search.id}"
 
   os_disk {
     storage_account_type = "Standard_LRS"
