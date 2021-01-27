@@ -148,7 +148,7 @@ resource "azurerm_availability_set" "main" {
   name                = "${var.prefix}-availability-set"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
-
+  platform_fault_domain_count = 2
   tags = {
     project = "AzureWebServerDeploy"
   }
