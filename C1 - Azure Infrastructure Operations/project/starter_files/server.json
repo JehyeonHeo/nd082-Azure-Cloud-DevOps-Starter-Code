@@ -18,8 +18,9 @@
 	
 		"managed_image_resource_group_name": "AzureWebServerTry",
 		"managed_image_name": "myPackerImage",
-		"azure_tags": "Image for AzureWebServerDeploy project",
-	
+		"azure_tags": {
+			"project": "AzureWebServerDeploy"
+		},
 		"location": "Korea Central",
 		"vm_size": "Standard_DS1_v2"
 	}],
