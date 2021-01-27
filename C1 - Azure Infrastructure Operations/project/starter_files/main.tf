@@ -170,7 +170,6 @@ resource "azurerm_linux_virtual_machine" "main" {
 
   os_disk {
     storage_account_type = "Standard_LRS"
-    create_option        = "Attach"
     caching              = "ReadWrite"
   }
 
