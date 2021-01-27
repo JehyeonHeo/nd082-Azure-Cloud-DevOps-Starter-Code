@@ -150,7 +150,7 @@ resource "azurerm_linux_virtual_machine" "main" {
   disable_password_authentication = false
   availability_set_id = azurerm_availability_set.main.id
   network_interface_ids = [
-    azurerm_network_interface.main.id[count.index],
+    azurerm_network_interface.main[count.index].id,
   ]
   source_image_id = data.azurerm_image.search.id
 
