@@ -129,21 +129,6 @@ resource "azurerm_subnet" "internal" {
   address_prefixes     = ["10.0.2.0/24"]
 }
 
-resource "azurerm_network_interface" "main" {
-  name                = "${var.prefix}-nic"
-  resource_group_name = azurerm_resource_group.main.name
-  location            = azurerm_resource_group.main.location
-
-  ip_configuration {
-    name                          = "internal"
-    subnet_id                     = azurerm_subnet.internal.id
-    private_ip_address_allocation = "Dynamic"
-  }
-  tags = {
-    project = "AzureWebServerDeploy"
-  }
-}
-
 resource "azurerm_availability_set" "main" {
   name                = "${var.prefix}-availability-set"
   location            = azurerm_resource_group.main.location
@@ -163,16 +148,33 @@ resource "azurerm_linux_virtual_machine" "main" {
   admin_username                  = var.username
   admin_password                  = var.password
   disable_password_authentication = false
+  availability_set_id = azurerm_availability_set.main.id
   network_interface_ids = [
-    azurerm_network_interface.main.id,
+    azurerm_network_interface.main.id[count.index],
   ]
-  source_image_id = "${data.azurerm_image.search.id}"
+  source_image_id = data.azurerm_image.search.id
 
   os_disk {
     storage_account_type = "Standard_LRS"
     caching              = "ReadWrite"
   }
 
+  tags = {
+    project = "AzureWebServerDeploy"
+  }
+}
+
+resource "azurerm_network_interface" "main" {
+  count               = var.minimum-number-of-vm
+  name                = "${var.prefix}-nic-${count.index}"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.internal.id
+    private_ip_address_allocation = "Dynamic"
+  }
   tags = {
     project = "AzureWebServerDeploy"
   }
