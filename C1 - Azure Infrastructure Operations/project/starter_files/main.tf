@@ -208,3 +208,7 @@ resource "azurerm_network_interface_backend_address_pool_association" "main" {
   ip_configuration_name   = "internal"
   backend_address_pool_id = azurerm_lb_backend_address_pool.main.id
 }
+
+output "Public_IP_Address" {
+  value = azurerm_public_ip.main.ip_address
+}
