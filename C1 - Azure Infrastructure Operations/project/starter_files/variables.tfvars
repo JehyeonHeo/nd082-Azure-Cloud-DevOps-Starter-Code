@@ -1,0 +1,2 @@
+username = "AzureUser"
+prefix = "AzureWebServerTest"
