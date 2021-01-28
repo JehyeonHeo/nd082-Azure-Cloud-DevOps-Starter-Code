@@ -34,22 +34,26 @@ For this project, you can use a Packer template and a Terraform template to depl
 ### Instructions
 1. How to run Packer template:
 > 1.1 Check your client_id, client_secret, subscription_id first.
-
+>
 > 1.2 Make resource group for your image(default: "AzureWebServerTry").
 >     If you want to use resource group with other name, revise "managed_image_resource_group_name" in server.json.
-
+>
 > 1.3 Type below command in the folder of server.json using CLI.
 > > packer build server.json -var "client_id=*your_client_id*" -var "client_secret=*your_client_secret*" -var "subscription_id=*your_subscription_id*"
 
 2. How to run Terraform templates:
-> 2.1 Change the vars.tf default values following your situation.
->     (ex) location default: koreacentral -> eastus2)
-
-> 2.2 Type below command in the folder of main.tf using CLI.
+> 2.1 Type below command in the folder of main.tf using CLI if you don't need to change default variables.
 > > Terraform plan -out=solution.plan
-
-> 2.3 If you want to specity other value for variables, refer to below example code.
+>
+> 2.2 If you want to specify other value for variables, refer to below example code.
 > > Terraform plan -var "username=User" -out=solution.plan
+>
+> 2.3 If you need to set lots of variables, using variable definitions(.tfvars) file will be more convenient to you.
+> > Terraform plan -var-file="variables.tfvars" -out=solution.plan
+>
+> > #Below code is one example of "variables.tfvars"
+> > location = "eastus"
+> > prefix = "AzureWebServerTest"
 
 > 2.4 Type below command in the folder of main.tf using CLI.
 > > Terraform apply "solution.plan"
