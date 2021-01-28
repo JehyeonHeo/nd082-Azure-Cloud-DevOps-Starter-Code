@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 data "azurerm_image" "search" {
-  name                = "myPackerImage"
+  name                = "myPackerImage2"
   resource_group_name = "AzureWebServerTry"
 }
 
@@ -45,7 +45,7 @@ resource "azurerm_network_security_rule" "main1" {
   source_port_range           = "*"
   destination_port_range      = "*"
   source_address_prefix       = "VirtualNetwork"
-  destination_address_prefix  = "VirtualNetwork"
+  destination_address_prefix  = "*"
   resource_group_name         = azurerm_resource_group.main.name
   network_security_group_name = azurerm_network_security_group.main.name
 }
@@ -65,12 +65,12 @@ resource "azurerm_network_security_rule" "main2" {
 }
 
 resource "azurerm_network_security_rule" "main3" {
-  name                        = "AllowInternetInBoundToLoadBalancer"
+  name                        = "AllowInternetToAzureLoadBalancerInBound"
   priority                    = 102
   direction                   = "Inbound"
   access                      = "Allow"
-  protocol                    = "TCP"
-  source_port_range           = "80"
+  protocol                    = "*"
+  source_port_range           = "*"
   destination_port_range      = "80"
   source_address_prefix       = "Internet"
   destination_address_prefix  = "AzureLoadBalancer"
@@ -87,7 +87,7 @@ resource "azurerm_network_security_rule" "main4" {
   source_port_range           = "*"
   destination_port_range      = "*"
   source_address_prefix       = "Internet"
-  destination_address_prefix  = "VirtualNetwork"
+  destination_address_prefix  = "*"
   resource_group_name         = azurerm_resource_group.main.name
   network_security_group_name = azurerm_network_security_group.main.name
 }
