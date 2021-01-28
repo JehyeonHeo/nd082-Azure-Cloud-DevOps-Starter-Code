@@ -17,7 +17,7 @@
 		"image_sku": "18.04-LTS",
 	
 		"managed_image_resource_group_name": "AzureWebServerTry",
-		"managed_image_name": "myPackerImage",
+		"managed_image_name": "myPackerImage2",
 		"azure_tags": {
 			"project": "AzureWebServerDeploy"
 		},
@@ -26,9 +26,12 @@
 	}],
 	"provisioners": [{
 		"inline": [
+			"sleep 30",
 			"echo 'Hello, World!' > index.html",
 			"nohup busybox httpd -f -p 80 &",
-			"sudo apt update && sudo apt -y install apache2",
+			"sudo apt update -y",
+			"sudo apt full-upgrade -y",
+			"sudo apt -y -f install apache2",
 			"sudo cp index.html /var/www/html/index.html"
 		],
 		"inline_shebang": "/bin/sh -x",
