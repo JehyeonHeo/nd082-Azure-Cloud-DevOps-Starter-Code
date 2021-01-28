@@ -52,7 +52,7 @@ For this project, you can use a Packer template and a Terraform template to depl
 > > Terraform plan -var-file="variables.tfvars" -out=solution.plan
 >
 > > #Below code is one example of "variables.tfvars"
-> > location = "eastus"
+> > username = "AzureUser"
 > > prefix = "AzureWebServerTest"
 
 > 2.4 Type below command in the folder of main.tf using CLI.
