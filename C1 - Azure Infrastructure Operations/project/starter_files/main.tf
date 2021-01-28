@@ -65,8 +65,22 @@ resource "azurerm_network_security_rule" "main2" {
 }
 
 resource "azurerm_network_security_rule" "main3" {
-  name                        = "DenyInternetInBound"
+  name                        = "AllowInternetInBoundToLoadBalancer"
   priority                    = 102
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "TCP"
+  source_port_range           = "80"
+  destination_port_range      = "80"
+  source_address_prefix       = "Internet"
+  destination_address_prefix  = "AzureLoadBalancer"
+  resource_group_name         = azurerm_resource_group.main.name
+  network_security_group_name = azurerm_network_security_group.main.name
+}
+
+resource "azurerm_network_security_rule" "main4" {
+  name                        = "DenyInternetInBound"
+  priority                    = 103
   direction                   = "Inbound"
   access                      = "Deny"
   protocol                    = "*"
@@ -78,7 +92,7 @@ resource "azurerm_network_security_rule" "main3" {
   network_security_group_name = azurerm_network_security_group.main.name
 }
 
-resource "azurerm_network_security_rule" "main4" {
+resource "azurerm_network_security_rule" "main5" {
   name                        = "AllowVnetOutBound"
   priority                    = 100
   direction                   = "Outbound"
